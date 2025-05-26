@@ -1,0 +1,56 @@
+{
+    "mcpServers": {
+      "sqlite": {
+        "command": "uv",
+        "args": [
+          "--directory",
+          "parent_of_servers_repo/servers/src/sqlite",
+          "run",
+          "mcp-server-sqlite",
+          "--db-path",
+          "~/test.db"
+        ]
+      },
+      "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+      "github": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "-e",
+          "GITHUB_PERSONAL_ACCESS_TOKEN",
+          "ghcr.io/github/github-mcp-server"
+        ],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"
+        }
+      },
+      "sequential-thinking": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-sequential-thinking"
+        ]
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "/Users/${USERNAME}/Desktop",
+          "${FILESYSTEM_AI}"
+        ]
+      }
+    }
+  }
+  

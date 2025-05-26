@@ -1,0 +1,25 @@
+# Base de datos
+*.db
+src/database/*.db
+
+# Dependencias
+node_modules/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo 

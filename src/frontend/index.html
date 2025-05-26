@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Alumnos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Gestión de Alumnos</h1>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="participantes">
+                <i class="fas fa-user-check"></i> Alumnos Participantes
+            </button>
+            <button class="tab-btn" data-tab="no-participantes">
+                <i class="fas fa-user-times"></i> Alumnos No Participantes
+            </button>
+        </div>
+
+        <div class="filter-container">
+			<div class="filter">
+				<label for="especialidad-select">Filtrar por Especialidad:</label>
+				<select id="especialidad-select">
+					<option value="todas">Todas las especialidades</option>
+					<!-- Las opciones se cargarán dinámicamente -->
+				</select>
+			</div>
+			<div class="search-section">
+				<div class="search">
+					<input type="text" id="search-input" placeholder="Buscar por nombre o legajo...">
+					<button id="search-btn"><i class="fas fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando datos...</p>
+        </div>
+
+        <div id="error-message" class="error-message" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Error al cargar los datos. Verifique la conexión a la base de datos.</p>
+        </div>
+
+        <div class="content-container">
+            <div id="participantes" class="tab-content active">
+                <h2>Alumnos Participantes</h2>
+				<div class="results-info">
+					<span id="participantes-count">0</span> alumnos encontrados
+					<button id="export-participantes" class="export-btn">
+						<i class="fas fa-file-export"></i> Exportar a CSV
+					</button>
+				</div>
+				
+                <table id="participantes-table">
+                    <thead>
+                        <tr>
+                            <th>Legajo</th>
+                            <th>Apellido</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Plan</th>
+                            <th>Especialidad</th>
+                            <th>Promedio</th>
+                            <th>Materias Aprobadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+                <div id="no-participantes-found" class="no-records-message" style="display: none;">
+                    <i class="fas fa-info-circle"></i>
+                    <p>No se encontraron alumnos participantes con los criterios seleccionados.</p>
+                </div>
+            </div>
+
+            <div id="no-participantes" class="tab-content">
+                <h2>Alumnos No Participantes</h2>
+                <div class="results-info">
+					<span id="no-participantes-count">0</span> alumnos encontrados
+					<button id="export-no-participantes" class="export-btn">
+						<i class="fas fa-file-export"></i> Exportar a CSV
+					</button>
+				</div>
+				
+                <table id="no-participantes-table">
+                    <thead>
+                        <tr>
+                            <th>Legajo</th>
+                            <th>Apellido</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Plan</th>
+                            <th>Especialidad</th>
+                            <th>Promedio</th>
+                            <th>Materias Aprobadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+                <div id="no-no-participantes-found" class="no-records-message" style="display: none;">
+                    <i class="fas fa-info-circle"></i>
+                    <p>No se encontraron alumnos no participantes con los criterios seleccionados.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Sistema de Gestión de Alumnos de Tutorías - UTN</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
