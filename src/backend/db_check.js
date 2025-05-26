@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 
 // Verificar que la base de datos existe
-const dbPath = 'D:/TutoriasDB/Mentoria.db';
+const dbPath = 'D:/TutoriasDB/src/database/Mentoria.db';
 
 try {
   if (!fs.existsSync(dbPath)) {

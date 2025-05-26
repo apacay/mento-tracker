@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+If you need to use a terminal, run a cmd.exe instead of powershell.

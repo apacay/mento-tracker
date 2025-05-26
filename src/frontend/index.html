@@ -1,127 +1,187 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full bg-gray-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión de Alumnos</title>
+    <title>Sistema de Tutorías</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Sistema de Gestión de Alumnos</h1>
+<body class="h-full">
+    <div class="min-h-full">
+        <!-- Header -->
+        <header class="bg-white shadow">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Sistema de Tutorías</h1>
+            </div>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="participantes">
-                <i class="fas fa-user-check"></i> Alumnos Participantes
-            </button>
-            <button class="tab-btn" data-tab="no-participantes">
-                <i class="fas fa-user-times"></i> Alumnos No Participantes
-            </button>
-        </div>
-
-        <div class="filter-container">
-			<div class="filter">
-				<label for="especialidad-select">Filtrar por Especialidad:</label>
-				<select id="especialidad-select">
-					<option value="todas">Todas las especialidades</option>
-					<!-- Las opciones se cargarán dinámicamente -->
-				</select>
-			</div>
-			<div class="search-section">
-				<div class="search">
-					<input type="text" id="search-input" placeholder="Buscar por nombre o legajo...">
-					<button id="search-btn"><i class="fas fa-search"></i></button>
-				</div>
-			</div>
-		</div>
-
-
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Cargando datos...</p>
-        </div>
-
-        <div id="error-message" class="error-message" style="display: none;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <p>Error al cargar los datos. Verifique la conexión a la base de datos.</p>
-        </div>
-
-        <div class="content-container">
-            <div id="participantes" class="tab-content active">
-                <h2>Alumnos Participantes</h2>
-				<div class="results-info">
-					<span id="participantes-count">0</span> alumnos encontrados
-					<button id="export-participantes" class="export-btn">
-						<i class="fas fa-file-export"></i> Exportar a CSV
-					</button>
-				</div>
-				
-                <table id="participantes-table">
-                    <thead>
-                        <tr>
-                            <th>Legajo</th>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Teléfono</th>
-                            <th>Plan</th>
-                            <th>Especialidad</th>
-                            <th>Promedio</th>
-                            <th>Materias Aprobadas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos se cargarán dinámicamente -->
-                    </tbody>
-                </table>
-                <div id="no-participantes-found" class="no-records-message" style="display: none;">
-                    <i class="fas fa-info-circle"></i>
-                    <p>No se encontraron alumnos participantes con los criterios seleccionados.</p>
+        <main>
+            <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+                <!-- Tabs -->
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                        <button class="tab-btn active whitespace-nowrap border-b-2 border-blue-500 py-4 px-1 text-sm font-medium text-blue-600" data-tab="participantes">Participantes</button>
+                        <button class="tab-btn whitespace-nowrap border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700" data-tab="no-participantes">No Participantes</button>
+                    </nav>
                 </div>
-            </div>
 
-            <div id="no-participantes" class="tab-content">
-                <h2>Alumnos No Participantes</h2>
-                <div class="results-info">
-					<span id="no-participantes-count">0</span> alumnos encontrados
-					<button id="export-no-participantes" class="export-btn">
-						<i class="fas fa-file-export"></i> Exportar a CSV
-					</button>
-				</div>
-				
-                <table id="no-participantes-table">
-                    <thead>
-                        <tr>
-                            <th>Legajo</th>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Teléfono</th>
-                            <th>Plan</th>
-                            <th>Especialidad</th>
-                            <th>Promedio</th>
-                            <th>Materias Aprobadas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos se cargarán dinámicamente -->
-                    </tbody>
-                </table>
-                <div id="no-no-participantes-found" class="no-records-message" style="display: none;">
-                    <i class="fas fa-info-circle"></i>
-                    <p>No se encontraron alumnos no participantes con los criterios seleccionados.</p>
+                <!-- Búsqueda -->
+                <div class="mt-6 mb-8">
+                    <div class="max-w-xl">
+                        <label for="search-input" class="block text-sm font-medium text-gray-700">Buscar estudiante</label>
+                        <div class="mt-2 flex rounded-md shadow-sm">
+                            <input type="text" 
+                                   id="search-input" 
+                                   class="block w-full rounded-l-md border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-blue-500 sm:text-sm" 
+                                   placeholder="Ingrese legajo, nombre o apellido">
+                            <button id="search-btn" 
+                                    class="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <footer>
-            <p>&copy; 2025 Sistema de Gestión de Alumnos de Tutorías - UTN</p>
-        </footer>
+                <!-- Filtros -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h3 class="text-base font-semibold leading-6 text-gray-900 mb-4">Filtros avanzados</h3>
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        <div>
+                            <label for="especialidad-select" class="block text-sm font-medium text-gray-700 mb-2">Especialidad</label>
+                            <select id="especialidad-select" 
+                                    class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+                                <option value="todas">Todas las especialidades</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="plan-select" class="block text-sm font-medium text-gray-700 mb-2">Plan de estudios</label>
+                            <select id="plan-select" 
+                                    class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+                                <option value="todos">Todos los planes</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="promedio-range" class="block text-sm font-medium text-gray-700 mb-2">
+                                Promedio mínimo: <span id="promedio-value" class="font-semibold">0.0</span>
+                            </label>
+                            <input type="range" 
+                                   id="promedio-range" 
+                                   min="0" 
+                                   max="10" 
+                                   step="0.1" 
+                                   value="0" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        
+                        <div>
+                            <label for="actividades-range" class="block text-sm font-medium text-gray-700 mb-2">
+                                Actividades mínimas: <span id="actividades-value" class="font-semibold">0</span>
+                            </label>
+                            <input type="range" 
+                                   id="actividades-range" 
+                                   min="0" 
+                                   max="100" 
+                                   step="1" 
+                                   value="0" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido de las tabs -->
+                <div id="participantes" class="tab-content active">
+                    <div class="sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h2 class="text-xl font-semibold text-gray-900">Participantes (<span id="participantes-count">0</span>)</h2>
+                        </div>
+                        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <button id="export-participantes" class="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                                Exportar a CSV
+                            </button>
+                        </div>
+                    </div>
+                    <div id="no-participantes-found" class="mt-4 text-center text-gray-500" style="display: none;">
+                        No se encontraron participantes con los filtros actuales.
+                    </div>
+                    <div class="mt-8 flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle">
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table id="participantes-table" class="min-w-full divide-y divide-gray-300">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Legajo</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Apellido</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nombre</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Especialidad</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Promedio</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actividades</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 bg-white"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="no-participantes" class="tab-content" style="display: none;">
+                    <div class="sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h2 class="text-xl font-semibold text-gray-900">No Participantes (<span id="no-participantes-count">0</span>)</h2>
+                        </div>
+                        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <button id="export-no-participantes" class="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                                Exportar a CSV
+                            </button>
+                        </div>
+                    </div>
+                    <div id="no-no-participantes-found" class="mt-4 text-center text-gray-500" style="display: none;">
+                        No se encontraron estudiantes no participantes con los filtros actuales.
+                    </div>
+                    <div class="mt-8 flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle">
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table id="no-participantes-table" class="min-w-full divide-y divide-gray-300">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Legajo</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Apellido</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nombre</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Especialidad</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Promedio</th>
+                                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actividades</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 bg-white"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading y Error -->
+                <div id="loading" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50" style="display: none;">
+                    <div class="rounded-lg bg-white p-4 shadow-xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+                            <span class="text-lg font-medium text-gray-900">Cargando...</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="error-message" class="fixed bottom-4 right-4 rounded-lg bg-red-50 p-4 text-sm text-red-700 shadow-lg" style="display: none;"></div>
+            </div>
+        </main>
     </div>
 
+    <!-- Scripts -->
+    <script src="components/ErrorDisplay.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

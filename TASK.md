@@ -32,6 +32,32 @@ Cada tarea debe incluir:
     - [ ] TUT-004.4: Implementar manejo de errores
     - [ ] TUT-004.5: Agregar registro de importaciones
 
+### Fase de Testing y Manejo de Errores
+- [ ] TUT-005: Implementar sistema robusto de logging y manejo de errores
+  - Fecha: [FECHA_ACTUAL]
+  - Estado: En Progreso
+  - Subtareas:
+    - [ ] TUT-005.1: Implementar logging de errores del frontend
+      - Verificar que los errores del cliente se registren en error.log
+      - Agregar contexto y stack trace a los logs
+      - Implementar pruebas para verificar el formato del log
+    - [ ] TUT-005.2: Mejorar manejo de errores del backend
+      - Implementar logging detallado para errores de SQL
+      - Agregar logging para errores de validación de parámetros
+      - Registrar errores de rutas no encontradas
+    - [ ] TUT-005.3: Implementar pruebas de integración para logging
+      - Verificar registro de errores en archivos físicos
+      - Probar diferentes tipos de errores (DB, validación, rutas)
+      - Validar formato y contenido de los logs
+    - [ ] TUT-005.4: Mejorar UI/UX para manejo de errores
+      - Mostrar mensajes de error amigables al usuario
+      - Implementar sistema de reintentos para operaciones fallidas
+      - Agregar feedback visual para estados de error
+    - [ ] TUT-005.5: Implementar monitoreo de errores
+      - Crear dashboard para visualizar errores frecuentes
+      - Implementar alertas para errores críticos
+      - Agregar métricas de errores por tipo y frecuencia
+
 ## Tareas Completadas
 
 - [x] TUT-001: Traducir reglas del proyecto a español
